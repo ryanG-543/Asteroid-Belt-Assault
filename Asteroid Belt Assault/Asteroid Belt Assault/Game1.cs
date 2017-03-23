@@ -34,7 +34,7 @@ namespace Asteroid_Belt_Assault
 
         SpriteFont pericles14;
 
-        private float playerDeathDelayTime = 10f;
+        private float playerDeathDelayTime = 2f;
         private float playerDeathTimer = 0f;
         private float titleScreenTimer = 0f;
         private float titleScreenDelayTime = 1f;
@@ -300,10 +300,10 @@ namespace Asteroid_Belt_Assault
             {
                 spriteBatch.DrawString(
                     pericles14,
-                    "G A M E  O V E R !",
+                    "Y O U   T R I E D",
                     new Vector2(
                         this.Window.ClientBounds.Width / 2 -
-                          pericles14.MeasureString("G A M E  O V E R !").X / 2,
+                          pericles14.MeasureString("Y O U   T R I E D").X / 2,
                         50),
                     Color.White);
             }
