@@ -21,6 +21,7 @@ namespace Asteroid_Belt_Assault
         private int minSpeed = 60;
         private int maxSpeed = 120;
 
+        public bool Destroyed = false;
         private Random rand = new Random();
 
         public void AddAsteroid()
