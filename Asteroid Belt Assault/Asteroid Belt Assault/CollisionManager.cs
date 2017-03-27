@@ -134,15 +134,32 @@ namespace Asteroid_Belt_Assault
                 }
             }
         }
- //       private void checkEnemyToAsteroidCollisions()
- //       {
- //           foreach (Enemy Enemy in enemyManager.Enemies)
- //           {
- //               if (asteroid.IsCircleColliding(
- //                   enemyManager.EnemySprite.Center,
- //                   enemyManager.EnemySprite.CollisionRadius))
- //           }
- //       }
+
+        // FIX THIS LATER
+        private void checkEnemyToAsteroidCollisions()
+        {
+            foreach (Sprite asteroid in asteroidManager.Asteroids)
+            {
+                foreach (Enemy enemy in enemyManager.Enemies)
+                {
+                    if (asteroid.IsCircleColliding(
+                        enemy.EnemySprite.Center,
+                        enemy.EnemySprite.CollisionRadius))
+                    {
+                        explosionManager.AddExplosion(
+                            asteroid.Center,
+                            asteroid.Velocity / 10);
+
+                        asteroid.Location = offScreen;
+
+                        enemy.Destroyed = true;
+                        explosionManager.AddExplosion(
+                            enemy.EnemySprite.Center,
+                            Vector2.Zero);
+                    }
+                }
+            }
+        }
         public void CheckCollisions()
         {
             checkShotToEnemyCollisions();
