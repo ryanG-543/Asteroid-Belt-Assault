@@ -40,9 +40,11 @@ namespace Asteroid_Belt_Assault
         private float titleScreenDelayTime = 1f;
 
         private int playerStartingLives = 3;
+        private int playerStartingHealth = 100;
         private Vector2 playerStartLocation = new Vector2(390, 550);
         private Vector2 scoreLocation = new Vector2(20, 10);
         private Vector2 livesLocation = new Vector2(20, 25);
+        private Vector2 healthLocation = new Vector2(20, 40);
 
 
         public Game1()
@@ -127,7 +129,7 @@ namespace Asteroid_Belt_Assault
 
             SoundManager.Initialize(Content);
 
-            pericles14 = Content.Load<SpriteFont>(@"Fonts\Pericles14");
+            pericles14 = Content.Load<SpriteFont>(@"Fonts\Pericles14");            
 
 
             // TODO: use this.Content to load your game content here
@@ -145,6 +147,7 @@ namespace Asteroid_Belt_Assault
         private void resetGame()
         {
             playerManager.playerSprite.Location = playerStartLocation;
+            playerManager.healthRemaining = playerStartingHealth;
             foreach (Sprite asteroid in asteroidManager.Asteroids)
             {
                 asteroid.Location = new Vector2(-500, -500);
@@ -182,6 +185,7 @@ namespace Asteroid_Belt_Assault
                             ButtonState.Pressed))
                         {
                             playerManager.LivesRemaining = playerStartingLives;
+                            playerManager.healthRemaining = playerStartingHealth;
                             playerManager.PlayerScore = 0;
                             resetGame();
                             gameState = GameStates.Playing;
@@ -285,6 +289,16 @@ namespace Asteroid_Belt_Assault
                     scoreLocation,
                     Color.White);
 
+                spriteBatch.DrawString(
+                    pericles14,
+                    "Health: " + playerManager.healthRemaining.ToString(),
+                    healthLocation,
+                    Color.White);
+                if (playerManager.healthRemaining <= 0)
+                {
+                    playerManager.Destroyed = true;
+                }               
+
                 if (playerManager.LivesRemaining >= 0)
                 {
                     spriteBatch.DrawString(
@@ -300,10 +314,10 @@ namespace Asteroid_Belt_Assault
             {
                 spriteBatch.DrawString(
                     pericles14,
-                    "Y O U   T R I E D",
+                    "G I T   G U D",
                     new Vector2(
                         this.Window.ClientBounds.Width / 2 -
-                          pericles14.MeasureString("Y O U   T R I E D").X / 2,
+                          pericles14.MeasureString("G I T   G U D").X / 2,
                         50),
                     Color.White);
             }
