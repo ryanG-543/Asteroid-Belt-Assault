@@ -14,7 +14,7 @@ namespace Asteroid_Belt_Assault
         private float playerSpeed = 160.0f;
         private Rectangle playerAreaLimit;
 
-        public long PlayerScore = 0;
+        public int PlayerScore = 0;
         public int LivesRemaining = 3;
         public int healthRemaining = 100;
         public bool Destroyed = false;
@@ -99,6 +99,12 @@ namespace Asteroid_Belt_Assault
             if (keyState.IsKeyDown(Keys.J))
             {
                 FireShot();
+            }
+
+            //DEBUG BUTTON
+            if (keyState.IsKeyDown(Keys.LeftControl))
+            {
+                PlayerScore =+ 10000;
             }
 //          if (Mouse.LeftButton == MouseButtonState.Pressed);
 //          {

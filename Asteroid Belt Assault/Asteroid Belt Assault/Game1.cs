@@ -34,13 +34,13 @@ namespace Asteroid_Belt_Assault
 
         SpriteFont pericles14;
 
-        private float playerDeathDelayTime = 2f;
+        private float playerDeathDelayTime = 4f;
         private float playerDeathTimer = 0f;
         private float titleScreenTimer = 0f;
         private float titleScreenDelayTime = 1f;
 
         private int playerStartingLives = 3;
-        private int playerStartingHealth = 100;
+        private int playerStartingHealth = 100;        
         private Vector2 playerStartLocation = new Vector2(390, 550);
         private Vector2 scoreLocation = new Vector2(20, 10);
         private Vector2 livesLocation = new Vector2(20, 25);
@@ -307,9 +307,30 @@ namespace Asteroid_Belt_Assault
                             playerManager.LivesRemaining.ToString(),
                         livesLocation,
                         Color.White);
-                }
+                }           
             }
 
+            if (playerManager.PlayerScore == 10000)
+            {
+                playerManager.healthRemaining =+ 100;
+            }
+
+            if (playerManager.PlayerScore >= 20000)
+            {
+                playerManager.LivesRemaining =+ 3;
+            }
+
+            if ((gameState == GameStates.PlayerDead))
+            {
+                spriteBatch.DrawString(
+                    pericles14,
+                    "Y O U   D I E D",
+                    new Vector2(
+                        this.Window.ClientBounds.Width / 2 -
+                            pericles14.MeasureString("Y O U  D I E D").X / 2,
+                        50),
+                    Color.White);
+            }
             if ((gameState == GameStates.GameOver))
             {
                 spriteBatch.DrawString(
