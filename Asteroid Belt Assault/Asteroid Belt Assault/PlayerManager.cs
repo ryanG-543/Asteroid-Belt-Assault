@@ -104,7 +104,7 @@ namespace Asteroid_Belt_Assault
             //DEBUG BUTTON
             if (keyState.IsKeyDown(Keys.LeftControl))
             {
-                PlayerScore =+ 10000;
+                PlayerScore =+ 5000;
             }
 //          if (Mouse.LeftButton == MouseButtonState.Pressed);
 //          {

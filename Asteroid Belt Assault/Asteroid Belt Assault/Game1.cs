@@ -19,7 +19,7 @@ namespace Asteroid_Belt_Assault
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        enum GameStates { TitleScreen, Playing, PlayerDead, GameOver };
+        enum GameStates { TitleScreen, Playing, PlayerDead, GameOver, LevelUp };
         GameStates gameState = GameStates.TitleScreen;
         Texture2D titleScreen;
         Texture2D spriteSheet;
@@ -36,6 +36,8 @@ namespace Asteroid_Belt_Assault
 
         private float playerDeathDelayTime = 4f;
         private float playerDeathTimer = 0f;
+        private float playerLevelDelayTime = 4f;
+        private float playerLevelTimer = 0f;
         private float titleScreenTimer = 0f;
         private float titleScreenDelayTime = 1f;
 
@@ -217,6 +219,10 @@ namespace Asteroid_Belt_Assault
                         }
                     }
 
+                    if (playerManager.PlayerScore == 5000)
+                    {                        
+                        gameState = GameStates.LevelUp;                        
+                    }
                     break;
 
                 case GameStates.PlayerDead:
@@ -250,6 +256,24 @@ namespace Asteroid_Belt_Assault
                     }
                     break;
 
+                case GameStates.LevelUp:
+                    playerLevelTimer +=
+                        (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                    starField.Update(gameTime);
+                    asteroidManager.Update(gameTime);
+                    enemyManager.Update(gameTime);
+                    playerManager.PlayerShotManager.Update(gameTime);
+                    explosionManager.Update(gameTime);
+
+                    playerManager.PlayerScore = 5100;
+
+                    if (playerLevelTimer >= playerLevelDelayTime)
+                    {
+                        resetGame();
+                        gameState = GameStates.Playing;
+                    }
+                    break;
             }
 
             base.Update(gameTime);
@@ -275,7 +299,8 @@ namespace Asteroid_Belt_Assault
 
             if ((gameState == GameStates.Playing) ||
                 (gameState == GameStates.PlayerDead) ||
-                (gameState == GameStates.GameOver))
+                (gameState == GameStates.GameOver) ||
+                (gameState == GameStates.LevelUp))
             {
                 starField.Draw(spriteBatch);
                 asteroidManager.Draw(spriteBatch);
@@ -310,12 +335,7 @@ namespace Asteroid_Belt_Assault
                 }           
             }
 
-            if (playerManager.PlayerScore == 10000)
-            {
-                playerManager.healthRemaining =+ 100;
-            }
-
-            if (playerManager.PlayerScore >= 20000)
+            if (playerManager.PlayerScore == 20000)
             {
                 playerManager.LivesRemaining =+ 3;
             }
@@ -327,7 +347,7 @@ namespace Asteroid_Belt_Assault
                     "Y O U   D I E D",
                     new Vector2(
                         this.Window.ClientBounds.Width / 2 -
-                            pericles14.MeasureString("Y O U  D I E D").X / 2,
+                            pericles14.MeasureString("Y O U   D I E D").X / 2,
                         50),
                     Color.White);
             }
@@ -342,7 +362,17 @@ namespace Asteroid_Belt_Assault
                         50),
                     Color.White);
             }
-
+            if ((gameState == GameStates.LevelUp))
+            {
+                spriteBatch.DrawString(
+                    pericles14,
+                    "L E V E L   U P",
+                    new Vector2(
+                        this.Window.ClientBounds.Width / 2 -
+                        pericles14.MeasureString("L E V E L   U P").X / 2,
+                        50),
+                    Color.White);
+            }
 
             spriteBatch.End();
 

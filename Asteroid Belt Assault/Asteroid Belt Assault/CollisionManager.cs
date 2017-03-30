@@ -16,8 +16,8 @@ namespace Asteroid_Belt_Assault
         private Vector2 shotToAsteroidImpact = new Vector2(0, -20);
         private int enemyPointValue = 100;
         private int asteroidPointValue = 10;
-        private int enemyHealthValue = -10;
-        private int asteroidHealthValue = -5;
+        private int enemyHealthValue = -15;
+        private int asteroidHealthValue = -10;
 
         public CollisionManager(
             AsteroidManager asteroidManager,
