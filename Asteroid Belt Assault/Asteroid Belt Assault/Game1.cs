@@ -19,7 +19,7 @@ namespace Asteroid_Belt_Assault
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        enum GameStates { TitleScreen, Playing, PlayerDead, GameOver, LevelUp };
+        enum GameStates { TitleScreen, Playing, PlayerDead, GameOver, LevelUp, Win };
         GameStates gameState = GameStates.TitleScreen;
         Texture2D titleScreen;
         Texture2D spriteSheet;
@@ -34,12 +34,14 @@ namespace Asteroid_Belt_Assault
 
         SpriteFont pericles14;
 
+
         private float playerDeathDelayTime = 4f;
-        private float playerDeathTimer = 0f;
+        private float playerDeathTimer = 1f;
         private float playerLevelDelayTime = 4f;
-        private float playerLevelTimer = 0f;
+        private float playerLevelTimer = 1f;
         private float titleScreenTimer = 0f;
         private float titleScreenDelayTime = 1f;
+        private int pointsPerLevel = 1000;
 
         private int playerStartingLives = 3;
         private int playerStartingHealth = 100;        
@@ -47,7 +49,7 @@ namespace Asteroid_Belt_Assault
         private Vector2 scoreLocation = new Vector2(20, 10);
         private Vector2 livesLocation = new Vector2(20, 25);
         private Vector2 healthLocation = new Vector2(20, 40);
-
+        private Vector2 levelLocation = new Vector2(20, 55);
 
         public Game1()
         {
@@ -219,9 +221,14 @@ namespace Asteroid_Belt_Assault
                         }
                     }
 
-                    if (playerManager.PlayerScore == 5000)
-                    {                        
+                    if ((playerManager.PlayerScore / pointsPerLevel) + 1 != playerManager.CurrentLevel)
+                    {
+                        playerManager.CurrentLevel = 1 + playerManager.PlayerScore / pointsPerLevel;                       
                         gameState = GameStates.LevelUp;                        
+                    }
+                    if (playerManager.CurrentLevel == 5)
+                    {
+                        gameState = GameStates.Win;
                     }
                     break;
 
@@ -266,12 +273,30 @@ namespace Asteroid_Belt_Assault
                     playerManager.PlayerShotManager.Update(gameTime);
                     explosionManager.Update(gameTime);
 
-                    playerManager.PlayerScore = 5100;
-
                     if (playerLevelTimer >= playerLevelDelayTime)
                     {
+                        if (playerManager.CurrentLevel == 2)
+                        {
+                            playerManager.minShotTimer = 0.15f;
+                            enemyManager.MinShipsPerWave = 6;
+                            enemyManager.MaxShipsPerWave = 9;
+                        }
                         resetGame();
                         gameState = GameStates.Playing;
+                    }
+                    break;
+
+                case GameStates.Win:
+                    playerDeathTimer +=
+                        (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    starField.Update(gameTime);
+                    asteroidManager.Update(gameTime);
+                    enemyManager.Update(gameTime);
+                    playerManager.PlayerShotManager.Update(gameTime);
+                    explosionManager.Update(gameTime);
+                    if (playerDeathTimer >= playerDeathDelayTime)
+                    {
+                        gameState = GameStates.TitleScreen;
                     }
                     break;
             }
@@ -307,6 +332,12 @@ namespace Asteroid_Belt_Assault
                 playerManager.Draw(spriteBatch);
                 enemyManager.Draw(spriteBatch);
                 explosionManager.Draw(spriteBatch);
+
+                spriteBatch.DrawString(
+                pericles14,
+                "Level: " + playerManager.CurrentLevel.ToString(),
+                levelLocation,
+                Color.White);
 
                 spriteBatch.DrawString(
                     pericles14,
@@ -367,6 +398,17 @@ namespace Asteroid_Belt_Assault
                 spriteBatch.DrawString(
                     pericles14,
                     "L E V E L   U P",
+                    new Vector2(
+                        this.Window.ClientBounds.Width / 2 -
+                        pericles14.MeasureString("L E V E L   U P").X / 2,
+                        50),
+                    Color.White);
+            }
+            if ((gameState == GameStates.Win))
+            {
+                spriteBatch.DrawString(
+                    pericles14,
+                    "Y O U   W I N",
                     new Vector2(
                         this.Window.ClientBounds.Width / 2 -
                         pericles14.MeasureString("L E V E L   U P").X / 2,

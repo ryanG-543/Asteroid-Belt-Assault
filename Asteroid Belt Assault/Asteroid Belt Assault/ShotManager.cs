@@ -10,6 +10,7 @@ namespace Asteroid_Belt_Assault
     class ShotManager
     {
         public List<Sprite> Shots = new List<Sprite>();
+
         private Rectangle screenBounds;
 
         private static Texture2D Texture;

@@ -18,8 +18,8 @@ namespace Asteroid_Belt_Assault
         public ShotManager EnemyShotManager;
         private PlayerManager playerManager;
 
-        public int MinShipsPerWave = 9;
-        public int MaxShipsPerWave = 12;
+        public int MinShipsPerWave = 4;
+        public int MaxShipsPerWave = 6;
         private float nextWaveTimer = 0.0f;
         private float nextWaveMinTimer = 8.0f;
         private float shipSpawnTimer = 0.0f;

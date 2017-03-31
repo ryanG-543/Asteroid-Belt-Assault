@@ -18,10 +18,11 @@ namespace Asteroid_Belt_Assault
         public int LivesRemaining = 3;
         public int healthRemaining = 100;
         public bool Destroyed = false;
+        public int CurrentLevel = 1;
 
         private Vector2 gunOffset = new Vector2(25, 10);
         private float shotTimer = 0.0f;
-        private float minShotTimer = 0.2f;
+        public float minShotTimer = 0.2f;
         private int playerRadius = 15;
         public ShotManager PlayerShotManager;       
 
@@ -68,10 +69,63 @@ namespace Asteroid_Belt_Assault
         {
             if (shotTimer >= minShotTimer)
             {
-                PlayerShotManager.FireShot(
+                if (CurrentLevel == 1)
+                {
+                    PlayerShotManager.FireShot(
+                        playerSprite.Location + gunOffset,
+                        new Vector2(0, -1),
+                        true);
+                }
+                else if (CurrentLevel == 2)
+                {
+
+                    Vector2 direction = new Vector2(5, -100);
+                    direction.Normalize();
+
+                    PlayerShotManager.FireShot(
+                    playerSprite.Location + gunOffset,
+                    direction,
+                    true);
+
+
+                    direction = new Vector2(-5, -100);
+                    direction.Normalize();
+
+                    PlayerShotManager.FireShot(
+                    playerSprite.Location + gunOffset,
+                    direction,
+                    true);
+                }
+                else
+                {
+                    PlayerShotManager.FireShot(
                     playerSprite.Location + gunOffset,
                     new Vector2(0, -1),
                     true);
+
+                    Random rand = new Random(System.Environment.TickCount);
+                    for (int i = 1; i < CurrentLevel-1; i++)
+                    {
+                        Vector2 direction = new Vector2(-8 * i, -100 + rand.Next(-50,50));
+                        direction.Normalize();
+                       
+
+                        PlayerShotManager.FireShot(
+                        playerSprite.Location + gunOffset,
+                        direction,
+                        true);
+
+                        direction = new Vector2(8 * i, -100 + rand.Next(-50, 50));
+                        direction.Normalize();
+
+                        PlayerShotManager.FireShot(
+                        playerSprite.Location + gunOffset,
+                        direction,
+                        true);
+                    }
+
+                }
+
                 shotTimer = 0.0f;
             }
         }
@@ -104,7 +158,7 @@ namespace Asteroid_Belt_Assault
             //DEBUG BUTTON
             if (keyState.IsKeyDown(Keys.LeftControl))
             {
-                PlayerScore =+ 5000;
+                PlayerScore =+ 500;
             }
 //          if (Mouse.LeftButton == MouseButtonState.Pressed);
 //          {
