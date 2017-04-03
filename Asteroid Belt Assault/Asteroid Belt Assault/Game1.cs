@@ -226,7 +226,7 @@ namespace Asteroid_Belt_Assault
                         playerManager.CurrentLevel = 1 + playerManager.PlayerScore / pointsPerLevel;                       
                         gameState = GameStates.LevelUp;                        
                     }
-                    if (playerManager.CurrentLevel == 5)
+                    if (playerManager.CurrentLevel == 6)
                     {
                         gameState = GameStates.Win;
                     }
