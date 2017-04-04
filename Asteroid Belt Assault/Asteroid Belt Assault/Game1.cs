@@ -23,12 +23,14 @@ namespace Asteroid_Belt_Assault
         GameStates gameState = GameStates.TitleScreen;
         Texture2D titleScreen;
         Texture2D spriteSheet;
+        Texture2D planetSheet;
 
         StarField starField;
         AsteroidManager asteroidManager;
         PlayerManager playerManager;
-        EnemyManager enemyManager;
+        EnemyManager enemyManager;        
         ExplosionManager explosionManager;
+        PlanetManager planetManager;
 
         CollisionManager collisionManager;
 
@@ -81,6 +83,13 @@ namespace Asteroid_Belt_Assault
 
             titleScreen = Content.Load<Texture2D>(@"Textures\TitleScreen");
             spriteSheet = Content.Load<Texture2D>(@"Textures\spriteSheet");
+            planetSheet = Content.Load<Texture2D>(@"Textures\planetSheet");
+
+            planetManager = new PlanetManager(
+              this.Window.ClientBounds.Width,
+              this.Window.ClientBounds.Height,
+              new Vector2(0, 40f),
+              planetSheet);
 
             starField = new StarField(
                 this.Window.ClientBounds.Width,
@@ -200,11 +209,13 @@ namespace Asteroid_Belt_Assault
                 case GameStates.Playing:
 
                     starField.Update(gameTime);
+                    planetManager.Update(gameTime);
                     asteroidManager.Update(gameTime);
                     playerManager.Update(gameTime);
                     enemyManager.Update(gameTime);
                     explosionManager.Update(gameTime);
                     collisionManager.CheckCollisions();
+
 
                     if (playerManager.Destroyed)
                     {
@@ -327,11 +338,15 @@ namespace Asteroid_Belt_Assault
                 (gameState == GameStates.GameOver) ||
                 (gameState == GameStates.LevelUp))
             {
+
                 starField.Draw(spriteBatch);
+                planetManager.Draw(spriteBatch);
                 asteroidManager.Draw(spriteBatch);
+
                 playerManager.Draw(spriteBatch);
                 enemyManager.Draw(spriteBatch);
                 explosionManager.Draw(spriteBatch);
+                
 
                 spriteBatch.DrawString(
                 pericles14,

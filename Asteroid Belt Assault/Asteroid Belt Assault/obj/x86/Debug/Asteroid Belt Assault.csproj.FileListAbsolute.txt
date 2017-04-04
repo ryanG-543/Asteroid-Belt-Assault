@@ -113,3 +113,4 @@ C:\Users\eahscs\Documents\Visual Studio 2015\Projects\Asteroid-Belt-Assault\Aste
 C:\Users\eahscs\Documents\Visual Studio 2015\Projects\Asteroid-Belt-Assault\Asteroid Belt Assault\Asteroid Belt Assault\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\eahscs\Documents\Visual Studio 2015\Projects\Asteroid-Belt-Assault\Asteroid Belt Assault\Asteroid Belt Assault\obj\x86\Debug\Asteroid Belt Assault.exe
 C:\Users\eahscs\Documents\Visual Studio 2015\Projects\Asteroid-Belt-Assault\Asteroid Belt Assault\Asteroid Belt Assault\obj\x86\Debug\Asteroid Belt Assault.pdb
+C:\Users\eahscs\Documents\Visual Studio 2015\Projects\Asteroid-Belt-Assault\Asteroid Belt Assault\Asteroid Belt Assault\bin\x86\Debug\Content\Textures\planetSheet.xnb
