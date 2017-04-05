@@ -157,7 +157,7 @@ namespace Asteroid_Belt_Assault
             // TODO: Unload any non ContentManager content here
         }
 
-        private void resetGame()
+        public void resetGame()
         {
             playerManager.playerSprite.Location = playerStartLocation;
             playerManager.healthRemaining = playerStartingHealth;
@@ -275,16 +275,15 @@ namespace Asteroid_Belt_Assault
                     break;
 
                 case GameStates.LevelUp:
-                    playerLevelTimer +=
+                    playerDeathTimer +=
                         (float)gameTime.ElapsedGameTime.TotalSeconds;
-
                     starField.Update(gameTime);
                     asteroidManager.Update(gameTime);
                     enemyManager.Update(gameTime);
                     playerManager.PlayerShotManager.Update(gameTime);
                     explosionManager.Update(gameTime);
 
-                    if (playerLevelTimer >= playerLevelDelayTime)
+                    if (playerDeathTimer >= playerDeathDelayTime)
                     {
                         if (playerManager.CurrentLevel == 2)
                         {

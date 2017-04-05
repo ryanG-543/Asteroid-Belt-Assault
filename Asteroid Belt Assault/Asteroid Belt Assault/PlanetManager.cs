@@ -27,7 +27,7 @@ namespace Asteroid_Belt_Assault
             seed += System.Environment.TickCount;
             rand = new Random(seed);
 
-            planetRects.Add(new Rectangle(1427, 1703, 1629, 1914));
+            planetRects.Add(new Rectangle(1277, 1689, 1545, 1957));
             planetRects.Add(new Rectangle(1667, 1710, 1855, 1902));
             
 

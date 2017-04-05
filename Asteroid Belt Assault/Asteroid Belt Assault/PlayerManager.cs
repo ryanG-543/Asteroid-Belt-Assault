@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Asteroid_Belt_Assault
 {
     class PlayerManager
-    {
+    {        
         public Sprite playerSprite;
         private float playerSpeed = 160.0f;
         private Rectangle playerAreaLimit;
@@ -156,14 +156,14 @@ namespace Asteroid_Belt_Assault
             }
 
             //DEBUG BUTTON
-            if (keyState.IsKeyDown(Keys.LeftControl))
+            if (keyState.IsKeyDown(Keys.NumPad1))
             {
-                PlayerScore =+ 500;
-            }
-//          if (Mouse.LeftButton == MouseButtonState.Pressed);
-//          {
-//              FireShot();
-//          }
+                PlayerScore = 1000;
+            }                     
+            //          if (Mouse.LeftButton == MouseButtonState.Pressed);
+            //          {
+            //              FireShot();
+            //          }
         }
 
         private void HandleGamepadInput(GamePadState gamePadState)
