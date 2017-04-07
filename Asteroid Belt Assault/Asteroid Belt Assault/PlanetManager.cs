@@ -27,9 +27,9 @@ namespace Asteroid_Belt_Assault
             seed += System.Environment.TickCount;
             rand = new Random(seed);
 
-            planetRects.Add(new Rectangle(1277, 1689, 1545, 1957));
-            planetRects.Add(new Rectangle(1667, 1710, 1855, 1902));
-            planetRects.Add(new Rectangle(895, 1741, 1198, 1907));
+            planetRects.Add(new Rectangle(1277, 1689, 268, 268));
+            planetRects.Add(new Rectangle(1667, 1710, 188, 192));
+            planetRects.Add(new Rectangle(895, 1741, 303, 166));
             
 
             this.screenWidth = screenWidth;
@@ -39,7 +39,7 @@ namespace Asteroid_Belt_Assault
             {
                 planets.Add(new Sprite(
                     new Vector2(rand.Next(0, screenWidth),
-                        -200),
+                        -600),
                     texture,
                     r,
                      Vector2.Zero));
@@ -60,7 +60,7 @@ namespace Asteroid_Belt_Assault
                 {
                     
                     star.Location = new Vector2(
-                         rand.Next(0, screenWidth), -200);
+                         rand.Next(0, screenWidth), -600);
                     star.Velocity = Vector2.Zero;
 
                     planets[rand.Next(0, planets.Count)].Velocity = new Vector2(0, 50);

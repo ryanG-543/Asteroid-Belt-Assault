@@ -56,6 +56,7 @@ namespace Asteroid_Belt_Assault
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 
@@ -287,7 +288,7 @@ namespace Asteroid_Belt_Assault
                     {
                         if (playerManager.CurrentLevel == 2)
                         {
-                            playerManager.minShotTimer = 0.15f;
+                           playerManager.minShotTimer = 0.15f;
                             enemyManager.MinShipsPerWave = 6;
                             enemyManager.MaxShipsPerWave = 9;
                         }
